@@ -1,10 +1,10 @@
 $(document).ready(function() {
     new WOW().init();
 
-    setTimeout(loadOverflow, 2000);
+    setTimeout(loadOverflow, 1500);
 
     $(window).load(function() {
-        $('#before-load').find('img').fadeOut(2000).end().delay(700).fadeOut('slow');
+        $('#before-load').find('img').fadeOut(1500).end().delay(400).fadeOut('slow');
     });
 
     function loadOverflow() {
