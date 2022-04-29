@@ -1,10 +1,10 @@
 $(document).ready(function() {
     new WOW().init();
 
-    setTimeout(loadOverflow, 1500);
+    setTimeout(loadOverflow, 2000);
 
     $(window).load(function() {
-        $('#before-load').find('img').fadeOut(1500).end().delay(400).fadeOut('slow');
+        $('#before-load').find('img').fadeOut(2000).end().delay(2000).fadeOut('slow');
     });
 
     function loadOverflow() {
@@ -26,27 +26,35 @@ $(document).ready(function() {
             $(element1).addClass("scale_on");
             if (item == 1) {
                 $(".bokeh_advantages").stop(true).animate({left: "-297px", bottom: "-170px", queue: false, opacity: 0.35}, 300);
+                $(".advantages__items_point1_img").css('opacity', '0.2');
             }
             else if (item == 2) {
                 $(".bokeh_advantages").stop(true).animate({left: "-734px", bottom: "-379px", queue: false, opacity: 0.35}, 300);
+                $(".advantages__items_point2_img").css('opacity', '0.2');
             }
             else if (item == 3) {
                 $(".bokeh_advantages").stop(true).animate({left: "-734px", bottom: "-561px", queue: false, opacity: 0.35}, 300);
+                $(".advantages__items_point4_img").css('opacity', '0.2');
             }
             else if (item == 4) {
                 $(".bokeh_advantages").stop(true).animate({left: "-710px", bottom: "-717px", queue: false, opacity: 0.35}, 300);
+                $(".advantages__items_point6_img").css('opacity', '0.2');
             }
             else if (item == 5) {
                 $(".bokeh_advantages").stop(true).animate({left: "-297px", bottom: "-873px", queue: false, opacity: 0.35}, 300);
+                $(".advantages__items_point8_img").css('opacity', '0.2');
             }
             else if (item == 6) {
                 $(".bokeh_advantages").stop(true).animate({left: "70px", bottom: "-750px", queue: false, opacity: 0.35}, 300);
+                $(".advantages__items_point7_img").css('opacity', '0.2');
             }
             else if (item == 7) {
                 $(".bokeh_advantages").stop(true).animate({left: "115px", bottom: "-557px", queue: false, opacity: 0.35}, 300);
+                $(".advantages__items_point5_img").css('opacity', '0.2');
             }
             else if (item == 8) {
                 $(".bokeh_advantages").stop(true).animate({left: "120px", bottom: "-360px", queue: false, opacity: 0.35}, 300);
+                $(".advantages__items_point3_img").css('opacity', '0.2');
             }
         });
         
@@ -54,9 +62,12 @@ $(document).ready(function() {
             $(element1).removeClass("scale_on");  
             $(element1).addClass("scale_off");
             $(".bokeh_advantages").stop(true).animate({left: "-297px", bottom: "-510px", queue: false, opacity: 0.2}, 300);
+            for ( let i = 1; i < 9; i++ ) {
+                $(".advantages__items_point"+i+"_img").css('opacity', '1');
+            }
         });
     }
-    for ( var i = 1; i < 9; i++ ) {
+    for ( let i = 1; i < 9; i++ ) {
         scaleOn('.advantages__items_sunshine_'+i, '.advantages__items_point_text_'+i, i);
     }
 
