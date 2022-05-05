@@ -22,7 +22,6 @@ $(document).ready(function() {
 
     function scaleOn(element, element1, item) {
         $(element1).mouseover(function() {
-            $(".advantages__sun_player").addClass("shake_that");
             $(element1).removeClass("scale_off");    
             $(element1).addClass("scale_on");
             $(element).addClass("shine_on");
@@ -54,7 +53,6 @@ $(document).ready(function() {
         });
 
         $(element).mouseover(function() {
-            $(".advantages__sun_player").addClass("shake_that");
             $(element1).removeClass("scale_off");    
             $(element1).addClass("scale_on");
             $(element).addClass("shine_on");
@@ -86,7 +84,6 @@ $(document).ready(function() {
         });
 
         $(element).mouseleave(function() {  
-            $(".advantages__sun_player").removeClass("shake_that");
             $(element1).removeClass("scale_on");    
             $(element1).addClass("scale_off");
             $(element).removeClass("shine_on");
@@ -97,7 +94,6 @@ $(document).ready(function() {
         });
         
         $(element1).mouseleave(function() {    
-            $(".advantages__sun_player").removeClass("shake_that");
             $(element1).removeClass("scale_on");  
             $(element1).addClass("scale_off");
             $(element).removeClass("shine_on");
