@@ -27,28 +27,28 @@ $(document).ready(function() {
             $(element1).addClass("scale_on");
             $(element).addClass("shine_on");
             if (item == 1) {
-                $(".advantages__items_point1_img").css('opacity', '0.2');
+                $(".advantages__items_point1_img").css('opacity', '0.1');
             }
             else if (item == 2) {
-                $(".advantages__items_point2_img").css('opacity', '0.2');
+                $(".advantages__items_point2_img").css('opacity', '0.1');
             }
             else if (item == 3) {
-                $(".advantages__items_point4_img").css('opacity', '0.2');
+                $(".advantages__items_point4_img").css('opacity', '0.1');
             }
             else if (item == 4) {
-                $(".advantages__items_point6_img").css('opacity', '0.2');
+                $(".advantages__items_point6_img").css('opacity', '0.1');
             }
             else if (item == 5) {
-                $(".advantages__items_point8_img").css('opacity', '0.2');
+                $(".advantages__items_point8_img").css('opacity', '0.1');
             }
             else if (item == 6) {
-                $(".advantages__items_point7_img").css('opacity', '0.2');
+                $(".advantages__items_point7_img").css('opacity', '0.1');
             }
             else if (item == 7) {
-                $(".advantages__items_point5_img").css('opacity', '0.2');
+                $(".advantages__items_point5_img").css('opacity', '0.1');
             }
             else if (item == 8) {
-                $(".advantages__items_point3_img").css('opacity', '0.2');
+                $(".advantages__items_point3_img").css('opacity', '0.1');
             }
             $(".advantages__items_raycast_"+item).css('opacity', '0.7');
         });
@@ -59,28 +59,28 @@ $(document).ready(function() {
             $(element1).addClass("scale_on");
             $(element).addClass("shine_on");
             if (item == 1) {
-                $(".advantages__items_point1_img").css('opacity', '0.2');
+                $(".advantages__items_point1_img").css('opacity', '0.1');
             }
             else if (item == 2) {
-                $(".advantages__items_point2_img").css('opacity', '0.2');
+                $(".advantages__items_point2_img").css('opacity', '0.1');
             }
             else if (item == 3) {
-                $(".advantages__items_point4_img").css('opacity', '0.2');
+                $(".advantages__items_point4_img").css('opacity', '0.1');
             }
             else if (item == 4) {
-                $(".advantages__items_point6_img").css('opacity', '0.2');
+                $(".advantages__items_point6_img").css('opacity', '0.1');
             }
             else if (item == 5) {
-                $(".advantages__items_point8_img").css('opacity', '0.2');
+                $(".advantages__items_point8_img").css('opacity', '0.1');
             }
             else if (item == 6) {
-                $(".advantages__items_point7_img").css('opacity', '0.2');
+                $(".advantages__items_point7_img").css('opacity', '0.1');
             }
             else if (item == 7) {
-                $(".advantages__items_point5_img").css('opacity', '0.2');
+                $(".advantages__items_point5_img").css('opacity', '0.1');
             }
             else if (item == 8) {
-                $(".advantages__items_point3_img").css('opacity', '0.2');
+                $(".advantages__items_point3_img").css('opacity', '0.1');
             }
             $(".advantages__items_raycast_"+item).css('opacity', '0.7');
         });
