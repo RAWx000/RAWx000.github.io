@@ -3,6 +3,12 @@ $(document).ready(function() {
 
     setTimeout(loadOverflow, 2000);
 
+    const textures = document.querySelectorAll('.textures__rightside_elements_item_img'),
+          texturesName = document.querySelectorAll('.textures__rightside_elements_item_name'),
+          texturesCurrent = document.querySelector('.textures__leftside_nav_tname');
+
+    let currentTextureNumber = 1;
+
     $(window).load(function() {
         $('#before-load').find('img').fadeOut(2000).end().delay(2000).fadeOut('slow');
     });
@@ -11,14 +17,14 @@ $(document).ready(function() {
         $('body').css('overflow-y', 'scroll');
     }
     
-    function showScroll(element) {
+    function showScroll(element, pixels) {
         $(window).scroll(function(){
-            if ($(window).scrollTop() > 900) {
+            if ($(window).scrollTop() > pixels) {
                 $(element).removeClass('hidden_on');
             }
         });
     }
-    showScroll('.advantages__wrap');
+    showScroll('.advantages__wrap', 900);
 
     function scaleOn(element, element1, item) {
         $(element1).mouseover(function() {
@@ -107,5 +113,44 @@ $(document).ready(function() {
     for ( let i = 1; i < 9; i++ ) {
         scaleOn('.advantages__items_sunshine_'+i, '.advantages__items_point_text_'+i, i);
     }
+
+    $('.textures__leftside_nav_leftarrow').click(function() {
+        let i = currentTextureNumber;
+        if (currentTextureNumber > 1) { currentTextureNumber--; }
+        else { currentTextureNumber = 11; }
+        $('.textures__leftside_img').attr("src", "img/elements/textures/" + currentTextureNumber + ".jpg");
+        choiceSelector(i, currentTextureNumber);
+    });
+
+    $('.textures__leftside_nav_rightarrow').click(function() {
+        let i = currentTextureNumber;
+        if (currentTextureNumber < 11) { currentTextureNumber++; }
+        else { currentTextureNumber = 1; }
+        $('.textures__leftside_img').attr("src", "img/elements/textures/" + currentTextureNumber + ".jpg");
+        choiceSelector(i, currentTextureNumber);
+    });
+
+    function choiceSelector(oldNum, newNum) {
+        $(textures[newNum - 1]).addClass('textures_choice');
+        $(textures[oldNum - 1]).removeClass('textures_choice');
+        let name = $(texturesName[newNum - 1]).text();
+
+        $(texturesCurrent).text(name);
+    }
+
+    function clickImgTexture(index) {
+        $(textures[index]).click(function() {
+            if (currentTextureNumber != index + 1) {
+                let i = currentTextureNumber;
+                currentTextureNumber = index + 1;
+                $('.textures__leftside_img').attr("src", "img/elements/textures/" + currentTextureNumber + ".jpg");
+                choiceSelector(i, currentTextureNumber);
+            }
+        });
+    }
+    for ( let i = 0; i < 11; i++ ) {
+        clickImgTexture(i);
+    }
+
     
 });
