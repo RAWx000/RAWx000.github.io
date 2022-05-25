@@ -5,9 +5,17 @@ $(document).ready(function() {
 
     const textures = document.querySelectorAll('.textures__rightside_elements_item_img'),
           texturesName = document.querySelectorAll('.textures__rightside_elements_item_name'),
-          texturesCurrent = document.querySelector('.textures__leftside_nav_tname');
+          texturesCurrent = document.querySelector('.textures__leftside_nav_tname'),
+          bobbinItems = document.querySelectorAll('.bobbins__carousel_item'),
+          projectsPleds = document.querySelectorAll('.projects__item_pled'),
+          projectsLogos = document.querySelectorAll('.projects__item_logo'),
+          projectsNums = document.querySelectorAll('.projects__item_num');
 
-    let currentTextureNumber = 1;
+    let currentTextureNumber = 1,
+        firstBobbinItem = 0,
+        lastBobbinItem = 6,
+        currentBobbinItem = 3,
+        bobbinColors = ["Оранжевый", "Бирюзовый", "Зеленый", "Красный", "Синий", "Пудровый", "Шоколадный"];
 
     $(window).load(function() {
         $('#before-load').find('img').fadeOut(2000).end().delay(2000).fadeOut('slow');
@@ -152,5 +160,95 @@ $(document).ready(function() {
         clickImgTexture(i);
     }
 
-    
+    $('.bobbins__nav_rightarrow').click(function() {
+        $(bobbinItems[firstBobbinItem]).appendTo('.bobbins__carousel');
+        lastBobbinItem = firstBobbinItem;
+        if (firstBobbinItem < 6) { firstBobbinItem++; }
+        else { firstBobbinItem = 0; }
+        currentBobbin(1);
+    });
+
+    $('.bobbins__nav_leftarrow').click(function() {
+        //$(bobbinItems[lastBobbinItem]).animate({'left':'10px'}, 50).animate({'right':''}, 50);
+        $(bobbinItems[lastBobbinItem]).prependTo('.bobbins__carousel');
+        firstBobbinItem = lastBobbinItem;
+        if (lastBobbinItem > 0) { lastBobbinItem--; }
+        else { lastBobbinItem = 6; }
+        currentBobbin(0);
+    });
+
+    function currentBobbin(direction) {
+        if (direction == 1) {
+            if (currentBobbinItem < 6) {
+                currentBobbinItem++;
+            }
+            else { currentBobbinItem = 0; }
+        }
+        else {
+            if (currentBobbinItem > 0) {
+                currentBobbinItem--;
+            }
+            else { currentBobbinItem = 6; }
+        }
+        $(".bobbins__nav_color").text(bobbinColors[currentBobbinItem]);
+        switch (currentBobbinItem) {
+            case 0:
+                $(".bobbins__nav_color").css('color', '#ffa500');
+                break;
+            case 1:
+                $(".bobbins__nav_color").css('color', '#30d5c8');
+                break;
+            case 2:
+                $(".bobbins__nav_color").css('color', '#7fff00');
+                break;
+            case 3:
+                $(".bobbins__nav_color").css('color', '#dc0c21');
+                break;
+            case 4:
+                $(".bobbins__nav_color").css('color', '#4169e1');
+                break;
+            case 5:
+                $(".bobbins__nav_color").css('color', '#ffc0cb');
+                break;
+            case 6:
+                $(".bobbins__nav_color").css('color', '#45322e');
+                break;
+        }
+    }
+
+    projectsPleds.forEach((element, i) => {
+        $(element).mouseover(function() {
+            switch (i) {
+                case 0:
+                    $(projectsLogos[i]).css('filter','drop-shadow(0px 0px 30px rgba(255, 165, 0, 0.8))');
+                    $(projectsNums[i]).css('filter','drop-shadow(0px 0px 15px rgba(255, 165, 0, 0.8))');
+                    break;
+                case 1:
+                    $(projectsLogos[i]).css('filter','drop-shadow(0px 0px 30px rgba(0, 0, 255, 0.8))');
+                    $(projectsNums[i]).css('filter','drop-shadow(0px 0px 15px rgba(0, 0, 255, 0.8))');
+                    break;
+                case 2:
+                    $(projectsLogos[i]).css('filter','drop-shadow(0px 0px 30px rgba(255, 0, 0, 0.8))');
+                    $(projectsNums[i]).css('filter','drop-shadow(0px 0px 15px rgba(255, 0, 0, 0.8))');
+                    break;
+                case 3:
+                    $(projectsLogos[i]).css('filter','drop-shadow(0px 0px 30px rgba(0, 50, 255, 0.8))');
+                    $(projectsNums[i]).css('filter','drop-shadow(0px 0px 15px rgba(0, 50, 255, 0.8))');
+                    break;
+                case 4:
+                    $(projectsLogos[i]).css('filter','drop-shadow(0px 0px 30px rgba(255, 165, 0, 0.8))');
+                    $(projectsNums[i]).css('filter','drop-shadow(0px 0px 15px rgba(255, 165, 0, 0.8))');
+                    break;
+                case 5:
+                    $(projectsLogos[i]).css('filter','drop-shadow(0px 0px 30px rgba(0, 0, 255, 0.8))');
+                    $(projectsNums[i]).css('filter','drop-shadow(0px 0px 15px rgba(0, 0, 255, 0.8))');
+                    break;
+            }
+        });
+        $(element).mouseleave(function() {
+            $(projectsLogos[i]).css('filter','');
+            $(projectsNums[i]).css('filter','');
+        });
+    });
+   
 });
