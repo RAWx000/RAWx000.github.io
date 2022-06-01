@@ -9,13 +9,20 @@ $(document).ready(function() {
           bobbinItems = document.querySelectorAll('.bobbins__carousel_item'),
           projectsPleds = document.querySelectorAll('.projects__item_pled'),
           projectsLogos = document.querySelectorAll('.projects__item_logo'),
-          projectsNums = document.querySelectorAll('.projects__item_num');
+          projectsNums = document.querySelectorAll('.projects__item_num'),
+          faceItems = document.querySelectorAll('.face__item_img'),
+          faceBorders = document.querySelectorAll('.face__item_border'),
+          calcCheckBoxes1 = document.querySelectorAll('.calc__checkboxes_item_rightside_check1_img'),
+          calcCheckBoxes2 = document.querySelectorAll('.calc__checkboxes_item_rightside_check2_img'),
+          hatsColorRounds = document.querySelectorAll('.hats__item_color_round');
 
     let currentTextureNumber = 1,
         firstBobbinItem = 0,
         lastBobbinItem = 6,
         currentBobbinItem = 3,
-        bobbinColors = ["Оранжевый", "Бирюзовый", "Зеленый", "Красный", "Синий", "Пудровый", "Шоколадный"];
+        bobbinColors = ["Оранжевый", "Бирюзовый", "Зеленый", "Красный", "Синий", "Пудровый", "Шоколадный"],
+        calcDiscount = [2, 2, 2, 2],
+        calcDiscountOld = 8;
 
     $(window).load(function() {
         $('#before-load').find('img').fadeOut(2000).end().delay(2000).fadeOut('slow');
@@ -116,7 +123,7 @@ $(document).ready(function() {
                 $(".advantages__items_raycast_"+i).css('opacity', '0');
             }
         });
-        
+
     }
     for ( let i = 1; i < 9; i++ ) {
         scaleOn('.advantages__items_sunshine_'+i, '.advantages__items_point_text_'+i, i);
@@ -169,7 +176,6 @@ $(document).ready(function() {
     });
 
     $('.bobbins__nav_leftarrow').click(function() {
-        //$(bobbinItems[lastBobbinItem]).animate({'left':'10px'}, 50).animate({'right':''}, 50);
         $(bobbinItems[lastBobbinItem]).prependTo('.bobbins__carousel');
         firstBobbinItem = lastBobbinItem;
         if (lastBobbinItem > 0) { lastBobbinItem--; }
@@ -248,6 +254,71 @@ $(document).ready(function() {
         $(element).mouseleave(function() {
             $(projectsLogos[i]).css('filter','');
             $(projectsNums[i]).css('filter','');
+        });
+    });
+
+    faceItems.forEach((element, i) => {
+        $(element).mouseover(function() {
+            $(faceBorders[i]).css('background-color','#ff59599a');
+            $(element).css('transform','scale(1.1)');
+        });
+        $(element).mouseleave(function() {
+            $(faceBorders[i]).css('background-color','');
+            $(element).css('transform','');
+        });
+    });
+
+    calcCheckBoxes1.forEach(element => {
+        $(element).css('background-color','#ff5349');
+    });
+
+    calcCheckBoxes1.forEach((element, i) => {
+        $(element).click(function() {
+            $(element).css('background-color','#ff5349');
+            $(calcCheckBoxes2[i]).css('background-color','#f6f6f6');
+            calcDiscount[i] = 2;
+            totalDiscount();
+        });
+    });
+    calcCheckBoxes2.forEach((element, i) => {
+        $(element).click(function() {
+            $(element).css('background-color','#ff5349');
+            $(calcCheckBoxes1[i]).css('background-color','#f6f6f6');
+            calcDiscount[i] = 10;
+            totalDiscount();
+        });
+    });
+
+    function totalDiscount() {
+        let total = 0;
+        for (let i = 0; i < 4; i++) { total += calcDiscount[i]; }
+        numberTo(calcDiscountOld, total, 300);
+    }
+
+    function numberTo(from, to, duration) {
+        let start = new Date().getTime();
+        setTimeout(function() {
+            let now = (new Date().getTime()) - start;
+            let progress = now / duration;
+            let result = Math.floor((to - from) * progress + from);
+            $('.calc__total_discount').text((progress < 1 ? result : to) + "%");
+            if (progress < 1) { setTimeout(arguments.callee, 10); }
+        }, 10);
+        calcDiscountOld = to;
+    }
+
+    hatsColorRounds.forEach((element, index) => {
+
+        if (index == 0) { $(element).css('background-image','radial-gradient(circle, #fff, #cc9541)'); }
+        else if (index == 8) { $(element).css('background-image','radial-gradient(circle, #fff, #a48e7b)'); }
+        else if (index == 13) { $(element).css('background-image','radial-gradient(circle, #fff, #986b76)'); }
+
+        $(element).click(function() {
+            for (let i = 0; i < 6; i++) {
+                $(element).parent().children().css('background-image','');
+            }
+            let roundColor = $(element).css('background-color');          
+            $(element).css('background-image','radial-gradient(circle, #fff, '+roundColor+')');
         });
     });
    
