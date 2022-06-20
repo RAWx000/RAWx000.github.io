@@ -14,7 +14,8 @@ $(document).ready(function() {
           faceBorders = document.querySelectorAll('.face__item_border'),
           calcCheckBoxes1 = document.querySelectorAll('.calc__checkboxes_item_rightside_check1_img'),
           calcCheckBoxes2 = document.querySelectorAll('.calc__checkboxes_item_rightside_check2_img'),
-          hatsColorRounds = document.querySelectorAll('.hats__item_color_round');
+          hatsColorRounds = document.querySelectorAll('.hats__item_color_round'),
+          processListItems = document.querySelectorAll('.process__list_stage');
 
     let currentTextureNumber = 1,
         firstBobbinItem = 0,
@@ -22,7 +23,8 @@ $(document).ready(function() {
         currentBobbinItem = 3,
         bobbinColors = ["Оранжевый", "Бирюзовый", "Зеленый", "Красный", "Синий", "Пудровый", "Шоколадный"],
         calcDiscount = [2, 2, 2, 2],
-        calcDiscountOld = 8;
+        calcDiscountOld = 8,
+        processStage = 0;
 
     $(window).load(function() {
         $('#before-load').find('img').fadeOut(2000).end().delay(2000).fadeOut('slow');
@@ -308,7 +310,6 @@ $(document).ready(function() {
     }
 
     hatsColorRounds.forEach((element, index) => {
-
         if (index == 0) { $(element).css('background-image','radial-gradient(circle, #fff, #cc9541)'); }
         else if (index == 8) { $(element).css('background-image','radial-gradient(circle, #fff, #a48e7b)'); }
         else if (index == 13) { $(element).css('background-image','radial-gradient(circle, #fff, #986b76)'); }
@@ -320,6 +321,70 @@ $(document).ready(function() {
             let roundColor = $(element).css('background-color');          
             $(element).css('background-image','radial-gradient(circle, #fff, '+roundColor+')');
         });
+    });
+
+    ////////////////// _process
+
+    $(processListItems[0]).css('text-shadow', '1px 0 0 currentColor');
+
+    $('.process__stage_left').click(function() {
+        if (processStage == 0) { processStage = 4; }
+        else { processStage--; }
+
+        processStageChange(processStage);
+    });
+
+    $('.process__stage_right').click(function() {
+        if (processStage == 4) { processStage = 0; }
+        else { processStage++; }
+
+        processStageChange(processStage);
+    });
+
+    function processStageChange(num) {
+        console.log(num);
+        for (let i = 0; i < 5; i++) {
+            $(processListItems[i]).css('text-shadow', '');
+        }
+        $(processListItems[num]).css('text-shadow', '1px 0 0 currentColor');
+        $('.process__stage_number_img').attr("src", "img/elements/process/stage" + (num+1) + ".png");
+        switch (num) {
+            case 0:
+                $('.process__stage_header').html('1 этап<br>Подготовка');
+                $('.process__name').html('1 этап. Подготовка');
+                $('.process__stage_descr').html('Наши опытные специалисты подбирают оптимальные<br>материалы, цвета и разрабатывают индивидуальную<br>производственную программу для вязальных станков.<br>На этом этапе заказчик получает макет и утверждает<br>проект.');
+                break;
+            case 1:
+                $('.process__stage_header').html('2 этап<br>Производство');
+                $('.process__name').html('2 этап. Производство');
+                $('.process__stage_descr').html('Пледы создаются на вязальных машинах Shima Seiki<br>согласно программе, более 800 иголок одновременно<br>переплетают нити пряжи в фактурные узоры, которые<br>благодаря специальным валам оттяжки вытягиваются в<br>трикотажный плед.');
+                break;
+            case 2:
+                $('.process__stage_header').html('3 этап<br>Брендирование');
+                $('.process__name').html('3 этап. Брендирование');
+                $('.process__stage_descr').html('Кожевенный мастер теснит логотип на заготовках<br>и подготавливает их для пришивания, а коллеги печатают<br>на специальных УФ принтерах атласные ленты с вашими<br>логотипами. На этом этапе наши швеи пришьют кожаные<br>или вышитые шевроны к пледу.');
+                break;
+            case 3:
+                $('.process__stage_header').html('4 этап<br>ОТК и Упаковка');
+                $('.process__name').html('4 этап. ОТК и Упаковка');
+                $('.process__stage_descr').html('Специалист досконально проверит соответствие продукции<br>установленным требованиям договора. Прозрачный пакет<br>с клапаном, подарочная коробка и логистический короб –<br>подарки придут в целости и сохранности. Гарантируем!');
+                break;
+            case 4:
+                $('.process__stage_header').html('5 этап<br>Завершение проекта');
+                $('.process__name').html('5 этап. Завершение проекта');
+                $('.process__stage_descr').html('Персональный менеджер проверит всю необходимую<br>сопроводительную документацию и подготовит Ваш груз<br>к отправке. Далее клиент примет груз, порадуется<br>качеству исполнения и с удовольствием преподнесёт<br>подарок получателю!');
+                break;
+        }
+    }
+
+    ////////////////// Конструктор
+
+    $('.constructor__jaw_button').click(function() {
+        $('.constructor__overlay').css('display', 'block');
+        //$('.constructor__overlay').fadeIn(150);
+    });
+    $('.constructor__modal_close').click(function() {
+        $('.constructor__overlay').fadeOut(300);
     });
    
 });
