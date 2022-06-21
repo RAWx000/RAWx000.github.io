@@ -15,16 +15,27 @@ $(document).ready(function() {
           calcCheckBoxes1 = document.querySelectorAll('.calc__checkboxes_item_rightside_check1_img'),
           calcCheckBoxes2 = document.querySelectorAll('.calc__checkboxes_item_rightside_check2_img'),
           hatsColorRounds = document.querySelectorAll('.hats__item_color_round'),
-          processListItems = document.querySelectorAll('.process__list_stage');
+          processListItems = document.querySelectorAll('.process__list_stage'),
+          constructorCheckYarn = document.querySelectorAll('.constructor__modal_1_item_checkbox_mark'),
+          constructorCheckPattern = document.querySelectorAll('.constructor__modal_2_item_checkbox_mark'),
+          constructorCheckColor = document.querySelectorAll('.constructor__modal_3_item_checkbox_mark');
 
     let currentTextureNumber = 1,
         firstBobbinItem = 0,
         lastBobbinItem = 6,
         currentBobbinItem = 3,
         bobbinColors = ["Оранжевый", "Бирюзовый", "Зеленый", "Красный", "Синий", "Пудровый", "Шоколадный"],
+        //////////////// Калькулятор [ниже]
         calcDiscount = [2, 2, 2, 2],
         calcDiscountOld = 8,
-        processStage = 0;
+        ////////////////
+        processStage = 0,
+        //////////////// Конструктор [ниже]
+        constructorStage = 0,
+        constructorYarn = 1,
+        constructorPattern = 1,
+        constructorColor = 1;
+
 
     $(window).load(function() {
         $('#before-load').find('img').fadeOut(2000).end().delay(2000).fadeOut('slow');
@@ -381,10 +392,89 @@ $(document).ready(function() {
 
     $('.constructor__jaw_button').click(function() {
         $('.constructor__overlay').css('display', 'block');
-        //$('.constructor__overlay').fadeIn(150);
+        $('.constructor__modal_0').css('display', 'block');
+        constructorStage = 0;
+        constructorProgressReset();
     });
+
     $('.constructor__modal_close').click(function() {
-        $('.constructor__overlay').fadeOut(300);
+        for (let i = 0; i < 5; i++) {
+            $('.constructor__modal_' + i).css('display', 'none');
+        }
+        $('.constructor__overlay').hide();
+        console.log('Пряжа: ' + constructorYarn + '; Узор: ' + constructorPattern + '; Цвет: ' + constructorColor);
+    });
+
+    for (let i = 0; i < 5; i++) {
+        $('.constructor__modal_' + i +'_button').click(function() {
+            if (i != 4) {
+                $('.constructor__modal_' + i).css('display', 'none');
+                $('.constructor__modal_' + (i+1)).fadeIn(300);
+                constructorStage++;
+            }
+        });
+        
+        $('.constructor__modal_' + i +'_back').click(function() {
+            $('.constructor__modal_' + constructorStage).css('display', 'none');
+            $('.constructor__modal_' + (constructorStage-1)).fadeIn(300);
+            constructorStage--;
+        });
+    }
+
+    $('.constructor__modal_4_reset').click(function() {
+        $('.constructor__modal_4').css('display', 'none');
+        $('.constructor__modal_1').fadeIn(300);
+        constructorStage = 1;
+        constructorProgressReset();
+    });
+
+    function constructorProgressReset() {
+        constructorCheckYarn.forEach((element, index) => {
+            if (index == 0) { $(element).css('background-image','linear-gradient(to top, #f7d986, #f7eecf)'); }
+            else { $(element).css('background-image','linear-gradient(to top, #f5f5f5, #f5f5f5)'); }
+        });
+        constructorCheckPattern.forEach((element, index) => {
+            if (index == 0) { $(element).css('background-image','linear-gradient(to top, #f7d986, #f7eecf)'); }
+            else { $(element).css('background-image','linear-gradient(to top, #f5f5f5, #f5f5f5)'); }
+        });
+        constructorCheckColor.forEach((element, index) => {
+            if (index == 0) { $(element).css('background-image','linear-gradient(to top, #f7d986, #f7eecf)'); }
+            else { $(element).css('background-image','linear-gradient(to top, #f5f5f5, #f5f5f5)'); }
+        });
+        constructorYarn = 1;
+        constructorPattern = 1;
+        constructorColor = 1;
+    }
+
+    calcCheckBoxes1.forEach((element, i) => {
+        $(element).click(function() {
+            $(element).css('background-color','#ff5349');
+            $(calcCheckBoxes2[i]).css('background-color','#f6f6f6');
+            calcDiscount[i] = 2;
+            totalDiscount();
+        });
+    });
+
+    constructorCheckYarn.forEach((element, index) => {
+        $(element).click(function() {
+            $(constructorCheckYarn[constructorYarn-1]).css('background-image','linear-gradient(to top, #f5f5f5, #f5f5f5)');
+            $(element).css('background-image','linear-gradient(to top, #f7d986, #f7eecf)');
+            constructorYarn = index+1;
+        });
+    });
+    constructorCheckPattern.forEach((element, index) => {
+        $(element).click(function() {
+            $(constructorCheckPattern[constructorPattern-1]).css('background-image','linear-gradient(to top, #f5f5f5, #f5f5f5)');
+            $(element).css('background-image','linear-gradient(to top, #f7d986, #f7eecf)');
+            constructorPattern = index+1;
+        });
+    });
+    constructorCheckColor.forEach((element, index) => {
+        $(element).click(function() {
+            $(constructorCheckColor[constructorColor-1]).css('background-image','linear-gradient(to top, #f5f5f5, #f5f5f5)');
+            $(element).css('background-image','linear-gradient(to top, #f7d986, #f7eecf)');
+            constructorColor = index+1;
+        });
     });
    
 });
