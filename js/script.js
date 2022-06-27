@@ -18,13 +18,15 @@ $(document).ready(function() {
           processListItems = document.querySelectorAll('.process__list_stage'),
           constructorCheckYarn = document.querySelectorAll('.constructor__modal_1_item_checkbox_mark'),
           constructorCheckPattern = document.querySelectorAll('.constructor__modal_2_item_checkbox_mark'),
-          constructorCheckColor = document.querySelectorAll('.constructor__modal_3_item_checkbox_mark');
+          constructorCheckColor = document.querySelectorAll('.constructor__modal_3_item_checkbox_mark'),
+          teamTargets = document.querySelectorAll('.team__item_target'),
+          teamImgs = document.querySelectorAll('.team__item_img');
 
     let currentTextureNumber = 1,
         firstBobbinItem = 0,
-        lastBobbinItem = 6,
-        currentBobbinItem = 3,
-        bobbinColors = ["Оранжевый", "Бирюзовый", "Зеленый", "Красный", "Синий", "Пудровый", "Шоколадный"],
+        lastBobbinItem = 9,
+        currentBobbinItem = 4,
+        bobbinColors = ["Оранжевый", "Бирюзовый", "Зеленый", "Синий", "Красный", "Пудровый", "Шоколадный", "Желтый", "Черный", "Белый"],
         //////////////// Калькулятор [ниже]
         calcDiscount = [2, 2, 2, 2],
         calcDiscountOld = 8,
@@ -34,7 +36,8 @@ $(document).ready(function() {
         constructorStage = 0,
         constructorYarn = 1,
         constructorPattern = 1,
-        constructorColor = 1;
+        constructorColor = 1,
+        jacquardPhoto = 0;
 
 
     $(window).load(function() {
@@ -183,7 +186,7 @@ $(document).ready(function() {
     $('.bobbins__nav_rightarrow').click(function() {
         $(bobbinItems[firstBobbinItem]).appendTo('.bobbins__carousel');
         lastBobbinItem = firstBobbinItem;
-        if (firstBobbinItem < 6) { firstBobbinItem++; }
+        if (firstBobbinItem < 9) { firstBobbinItem++; }
         else { firstBobbinItem = 0; }
         currentBobbin(1);
     });
@@ -192,13 +195,13 @@ $(document).ready(function() {
         $(bobbinItems[lastBobbinItem]).prependTo('.bobbins__carousel');
         firstBobbinItem = lastBobbinItem;
         if (lastBobbinItem > 0) { lastBobbinItem--; }
-        else { lastBobbinItem = 6; }
+        else { lastBobbinItem = 9; }
         currentBobbin(0);
     });
 
     function currentBobbin(direction) {
         if (direction == 1) {
-            if (currentBobbinItem < 6) {
+            if (currentBobbinItem < 9) {
                 currentBobbinItem++;
             }
             else { currentBobbinItem = 0; }
@@ -207,7 +210,7 @@ $(document).ready(function() {
             if (currentBobbinItem > 0) {
                 currentBobbinItem--;
             }
-            else { currentBobbinItem = 6; }
+            else { currentBobbinItem = 9; }
         }
         $(".bobbins__nav_color").text(bobbinColors[currentBobbinItem]);
         switch (currentBobbinItem) {
@@ -221,16 +224,25 @@ $(document).ready(function() {
                 $(".bobbins__nav_color").css('color', '#7fff00');
                 break;
             case 3:
-                $(".bobbins__nav_color").css('color', '#dc0c21');
+                $(".bobbins__nav_color").css('color', '#4169e1');
                 break;
             case 4:
-                $(".bobbins__nav_color").css('color', '#4169e1');
+                $(".bobbins__nav_color").css('color', '#dc0c21');
                 break;
             case 5:
                 $(".bobbins__nav_color").css('color', '#ffc0cb');
                 break;
             case 6:
                 $(".bobbins__nav_color").css('color', '#45322e');
+                break;
+            case 7:
+                $(".bobbins__nav_color").css('color', '#ffba00');
+                break;
+            case 8:
+                $(".bobbins__nav_color").css('color', '#000000');
+                break;
+            case 9:
+                $(".bobbins__nav_color").css('color', '#787878');
                 break;
         }
     }
@@ -320,17 +332,37 @@ $(document).ready(function() {
         calcDiscountOld = to;
     }
 
+    /////////////////////// Шапки
+
     hatsColorRounds.forEach((element, index) => {
-        if (index == 0) { $(element).css('background-image','radial-gradient(circle, #fff, #cc9541)'); }
-        else if (index == 8) { $(element).css('background-image','radial-gradient(circle, #fff, #a48e7b)'); }
-        else if (index == 13) { $(element).css('background-image','radial-gradient(circle, #fff, #986b76)'); }
+        if (index == 1) { $(element).css('background-image','radial-gradient(circle, #fff, #cc9541)'); }
+        else if (index == 11) { $(element).css('background-image','radial-gradient(circle, #fff, #a48e7b)'); }
+        else if (index == 12) { $(element).css('background-image','radial-gradient(circle, #fff, #986b76)'); }
 
         $(element).click(function() {
-            for (let i = 0; i < 6; i++) {
-                $(element).parent().children().css('background-image','');
-            }
+            $(element).parent().parent().children().first().attr("src", "img/elements/hats/" + (index+1) + ".png");
+            $(element).parent().children().css('background-image','');
             let roundColor = $(element).css('background-color');          
             $(element).css('background-image','radial-gradient(circle, #fff, '+roundColor+')');
+        });
+    });
+
+    $('.hats__button').click(function() {
+        //$('.hats__wrap2').css('display','flex');
+        //$('.hats__hidecontent').css('display','block');
+        $('.hats__wrap2').slideToggle('slow');
+        $('.hats__button').css('display','none');
+        $('.hats').css('padding', '50px 0 100px 0');
+    });
+
+    /////////////////// TEAM
+
+    teamTargets.forEach((element, index) => {
+        $(element).mouseover(function() {
+            $(teamImgs[index]).css('transform', 'scale(1.08) translateY(-4px)');
+        });
+        $(element).mouseleave(function() {
+            $(teamImgs[index]).css('transform', 'scale(1) translateY(0px)');
         });
     });
 
@@ -352,13 +384,22 @@ $(document).ready(function() {
         processStageChange(processStage);
     });
 
+//    setInterval(() => {
+//         if (processDelay == 1) {
+//             if (processStage == 4) { processStage = 0; }
+//             else { processStage++; }
+//             processStageChange(processStage);
+//         }
+//         else { processDelay = 1; }
+//     }, 5000);
+
     function processStageChange(num) {
-        console.log(num);
         for (let i = 0; i < 5; i++) {
             $(processListItems[i]).css('text-shadow', '');
         }
         $(processListItems[num]).css('text-shadow', '1px 0 0 currentColor');
         $('.process__stage_number_img').attr("src", "img/elements/process/stage" + (num+1) + ".png");
+        $('.process__stage_photo').attr("src", "img/elements/process/photos/" + (num+1) + ".png");
         switch (num) {
             case 0:
                 $('.process__stage_header').html('1 этап<br>Подготовка');
@@ -387,6 +428,21 @@ $(document).ready(function() {
                 break;
         }
     }
+
+    ////////////////// Жаккард
+
+    $('.jacquard__gallery_left').click(function() {
+        if (jacquardPhoto == 0) { jacquardPhoto = 9; }
+        else { jacquardPhoto--; }
+        $('.jacquard__gallery_photo').attr("src", "img/elements/jacquard/gallery/" + jacquardPhoto + ".png");
+    });
+
+    $('.jacquard__gallery_right').click(function() {
+        if (jacquardPhoto == 9) { jacquardPhoto = 0; }
+        else { jacquardPhoto++; }
+        $('.jacquard__gallery_photo').attr("src", "img/elements/jacquard/gallery/" + jacquardPhoto + ".png");
+
+    });
 
     ////////////////// Конструктор
 
