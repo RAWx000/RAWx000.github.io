@@ -20,16 +20,20 @@ $(document).ready(function() {
           constructorCheckPattern = document.querySelectorAll('.constructor__modal_2_item_checkbox_mark'),
           constructorCheckColor = document.querySelectorAll('.constructor__modal_3_item_checkbox_mark'),
           teamTargets = document.querySelectorAll('.team__item_target'),
-          teamImgs = document.querySelectorAll('.team__item_img');
+          teamImgs = document.querySelectorAll('.team__item_img'),
+          brandingItems = document.querySelectorAll('.branding__item_img'),
+          brandingItemsMore = document.querySelectorAll('.branding__more'),
+          expertsBottomPlayButtons = document.querySelectorAll('.experts__play_bottom'),
+          expertsMainPlayButton = document.querySelector('.experts__play_main');
 
     let currentTextureNumber = 1,
         firstBobbinItem = 0,
         lastBobbinItem = 9,
-        currentBobbinItem = 4,
-        bobbinColors = ["Оранжевый", "Бирюзовый", "Зеленый", "Синий", "Красный", "Пудровый", "Шоколадный", "Желтый", "Черный", "Белый"],
+        currentBobbinItem = 5,
+        bobbinColors = ["Оранжевый", "Бирюзовый", "Зеленый", "Синий", "Пудровый", "Красный", "Шоколадный", "Желтый", "Черный", "Серый", "Бежевый"],
         //////////////// Калькулятор [ниже]
-        calcDiscount = [2, 2, 2, 2],
-        calcDiscountOld = 8,
+        calcDiscount = [0, 0, 5, 0],
+        calcDiscountOld = 5,
         ////////////////
         processStage = 0,
         //////////////// Конструктор [ниже]
@@ -37,7 +41,9 @@ $(document).ready(function() {
         constructorYarn = 1,
         constructorPattern = 1,
         constructorColor = 1,
-        jacquardPhoto = 0;
+        jacquardPhoto = 0,
+        ///////////////
+        thanksNumber = 1;
 
 
     $(window).load(function() {
@@ -186,7 +192,7 @@ $(document).ready(function() {
     $('.bobbins__nav_rightarrow').click(function() {
         $(bobbinItems[firstBobbinItem]).appendTo('.bobbins__carousel');
         lastBobbinItem = firstBobbinItem;
-        if (firstBobbinItem < 9) { firstBobbinItem++; }
+        if (firstBobbinItem < 10) { firstBobbinItem++; }
         else { firstBobbinItem = 0; }
         currentBobbin(1);
     });
@@ -195,13 +201,13 @@ $(document).ready(function() {
         $(bobbinItems[lastBobbinItem]).prependTo('.bobbins__carousel');
         firstBobbinItem = lastBobbinItem;
         if (lastBobbinItem > 0) { lastBobbinItem--; }
-        else { lastBobbinItem = 9; }
+        else { lastBobbinItem = 10; }
         currentBobbin(0);
     });
 
     function currentBobbin(direction) {
         if (direction == 1) {
-            if (currentBobbinItem < 9) {
+            if (currentBobbinItem < 10) {
                 currentBobbinItem++;
             }
             else { currentBobbinItem = 0; }
@@ -210,7 +216,7 @@ $(document).ready(function() {
             if (currentBobbinItem > 0) {
                 currentBobbinItem--;
             }
-            else { currentBobbinItem = 9; }
+            else { currentBobbinItem = 10; }
         }
         $(".bobbins__nav_color").text(bobbinColors[currentBobbinItem]);
         switch (currentBobbinItem) {
@@ -227,10 +233,10 @@ $(document).ready(function() {
                 $(".bobbins__nav_color").css('color', '#4169e1');
                 break;
             case 4:
-                $(".bobbins__nav_color").css('color', '#dc0c21');
+                $(".bobbins__nav_color").css('color', '#ffc0cb');
                 break;
             case 5:
-                $(".bobbins__nav_color").css('color', '#ffc0cb');
+                $(".bobbins__nav_color").css('color', '#dc0c21');
                 break;
             case 6:
                 $(".bobbins__nav_color").css('color', '#45322e');
@@ -243,6 +249,9 @@ $(document).ready(function() {
                 break;
             case 9:
                 $(".bobbins__nav_color").css('color', '#787878');
+                break;
+            case 10:
+                $(".bobbins__nav_color").css('color', '#e0cfb1');
                 break;
         }
     }
@@ -293,23 +302,49 @@ $(document).ready(function() {
         });
     });
 
-    calcCheckBoxes1.forEach(element => {
-        $(element).css('background-color','#ff5349');
-    });
+    //////////// Calc
 
     calcCheckBoxes1.forEach((element, i) => {
+        $(element).css('background-color','#ff5349');
         $(element).click(function() {
             $(element).css('background-color','#ff5349');
             $(calcCheckBoxes2[i]).css('background-color','#f6f6f6');
-            calcDiscount[i] = 2;
+            switch (i) {
+                case 0:
+                    calcDiscount[i] = 0;
+                    break;
+                case 1:
+                    calcDiscount[i] = 0;
+                    break;
+                case 2:
+                    calcDiscount[i] = 5;
+                    break;
+                case 3:
+                    calcDiscount[i] = 0;
+                    break;
+            }
             totalDiscount();
         });
     });
+
     calcCheckBoxes2.forEach((element, i) => {
         $(element).click(function() {
             $(element).css('background-color','#ff5349');
             $(calcCheckBoxes1[i]).css('background-color','#f6f6f6');
-            calcDiscount[i] = 10;
+            switch (i) {
+                case 0:
+                    calcDiscount[i] = 15;
+                    break;
+                case 1:
+                    calcDiscount[i] = 10;
+                    break;
+                case 2:
+                    calcDiscount[i] = 0;
+                    break;
+                case 3:
+                    calcDiscount[i] = 10;
+                    break;
+            }
             totalDiscount();
         });
     });
@@ -330,6 +365,7 @@ $(document).ready(function() {
             if (progress < 1) { setTimeout(arguments.callee, 10); }
         }, 10);
         calcDiscountOld = to;
+        console.log(to);
     }
 
     /////////////////////// Шапки
@@ -467,6 +503,9 @@ $(document).ready(function() {
                 $('.constructor__modal_' + i).css('display', 'none');
                 $('.constructor__modal_' + (i+1)).fadeIn(300);
                 constructorStage++;
+                if (i == 3) {
+                    $('.constructor__modal_4_jaw_result_img').attr("src", "img/elements/constructor/4/result/" + constructorPattern + constructorColor + ".png");
+                }
             }
         });
         
@@ -486,15 +525,15 @@ $(document).ready(function() {
 
     function constructorProgressReset() {
         constructorCheckYarn.forEach((element, index) => {
-            if (index == 0) { $(element).css('background-image','linear-gradient(to top, #f7d986, #f7eecf)'); }
+            if (index == 0) { $(element).css('background-image','linear-gradient(to top, rgb(219 20 20), rgb(251 123 123))'); }
             else { $(element).css('background-image','linear-gradient(to top, #f5f5f5, #f5f5f5)'); }
         });
         constructorCheckPattern.forEach((element, index) => {
-            if (index == 0) { $(element).css('background-image','linear-gradient(to top, #f7d986, #f7eecf)'); }
+            if (index == 0) { $(element).css('background-image','linear-gradient(to top, rgb(219 20 20), rgb(251 123 123))'); }
             else { $(element).css('background-image','linear-gradient(to top, #f5f5f5, #f5f5f5)'); }
         });
         constructorCheckColor.forEach((element, index) => {
-            if (index == 0) { $(element).css('background-image','linear-gradient(to top, #f7d986, #f7eecf)'); }
+            if (index == 0) { $(element).css('background-image','linear-gradient(to top, rgb(219 20 20), rgb(251 123 123))'); }
             else { $(element).css('background-image','linear-gradient(to top, #f5f5f5, #f5f5f5)'); }
         });
         constructorYarn = 1;
@@ -502,35 +541,204 @@ $(document).ready(function() {
         constructorColor = 1;
     }
 
-    calcCheckBoxes1.forEach((element, i) => {
-        $(element).click(function() {
-            $(element).css('background-color','#ff5349');
-            $(calcCheckBoxes2[i]).css('background-color','#f6f6f6');
-            calcDiscount[i] = 2;
-            totalDiscount();
-        });
-    });
-
     constructorCheckYarn.forEach((element, index) => {
         $(element).click(function() {
             $(constructorCheckYarn[constructorYarn-1]).css('background-image','linear-gradient(to top, #f5f5f5, #f5f5f5)');
-            $(element).css('background-image','linear-gradient(to top, #f7d986, #f7eecf)');
+            $(element).css('background-image','linear-gradient(to top, rgb(219 20 20), rgb(251 123 123))');
             constructorYarn = index+1;
         });
     });
     constructorCheckPattern.forEach((element, index) => {
         $(element).click(function() {
             $(constructorCheckPattern[constructorPattern-1]).css('background-image','linear-gradient(to top, #f5f5f5, #f5f5f5)');
-            $(element).css('background-image','linear-gradient(to top, #f7d986, #f7eecf)');
+            $(element).css('background-image','linear-gradient(to top, rgb(219 20 20), rgb(251 123 123))');
             constructorPattern = index+1;
         });
     });
     constructorCheckColor.forEach((element, index) => {
         $(element).click(function() {
             $(constructorCheckColor[constructorColor-1]).css('background-image','linear-gradient(to top, #f5f5f5, #f5f5f5)');
-            $(element).css('background-image','linear-gradient(to top, #f7d986, #f7eecf)');
+            $(element).css('background-image','linear-gradient(to top, rgb(219 20 20), rgb(251 123 123))');
             constructorColor = index+1;
         });
     });
-   
+
+    /////////////// Branding
+
+    brandingItems.forEach((element, index) => {
+        if (index != 4) {
+            $(element).click(function() {
+                $('.branding__overlay').css('display', 'block');
+                if (index == 5) { index--; }
+                $(brandingItemsMore[index]).fadeIn('fast');
+            });
+        }
+    });
+
+    $('.branding__more_close').click(function() {
+        for (let i = 0; i < 5; i++) {
+            $(brandingItemsMore[i]).css('display', 'none');
+        }
+        $('.branding__overlay').hide();
+    });
+
+    //////////////// Thanks
+
+    $('.thanks__rightarrow').click(function() {
+        if (thanksNumber < 3) {
+            thanksNumber++;
+        }
+        else { 
+            thanksNumber = 1;
+        }
+        updateThanks();
+    });
+
+    $('.thanks__leftarrow').click(function() {
+        if (thanksNumber > 1) {
+            thanksNumber--;
+        }
+        else { 
+            thanksNumber = 3;
+        }
+        updateThanks();
+    });
+
+    function updateThanks() {
+        $('.thanks__item2').attr("src", "img/elements/thanks/2/" + thanksNumber + ".png");
+        switch (thanksNumber) {
+            case 1:
+                $('.thanks__item3').attr("src", "img/elements/thanks/3/2.png");
+                $('.thanks__item1').attr("src", "img/elements/thanks/1/3.png");
+                break;
+            case 2:
+                $('.thanks__item3').attr("src", "img/elements/thanks/3/3.png");
+                $('.thanks__item1').attr("src", "img/elements/thanks/1/1.png");
+                break;
+            case 3:
+                $('.thanks__item3').attr("src", "img/elements/thanks/3/1.png");
+                $('.thanks__item1').attr("src", "img/elements/thanks/1/2.png");
+                break; 
+        }
+    }
+
+    $('.thanks__target2').click(function() {
+        $('.thanks__overlay').css('display', 'block');
+        $('.thanks__overlay_item').attr("src", "img/elements/thanks/a4_"+ thanksNumber +".png");
+    });
+
+    $('.thanks__overlay_close').click(function() {
+        $('.thanks__overlay').hide();
+    });
+
+    /////////////// Experts
+
+    $(expertsMainPlayButton).click(function() {
+        setTimeout(function() {
+            $('.experts__part1_prewiew_video')[0].play();
+            $(expertsMainPlayButton).css('display', 'none');
+            setTimeout(function() {
+                $(expertsMainPlayButton).css('display', 'block');
+            }, 25500);
+        }, 200);
+    });
+
+    expertsBottomPlayButtons.forEach((element, index) => {
+        $(element).click(function() {  
+            setTimeout(function() {
+                $(element).parent().children().first()[0].play();
+                $(element).css('display', 'none');
+                if (index == 0) {
+                    setTimeout(function() {
+                        $(element).css('display', 'block');
+                    }, 24500);
+                }
+                else if (index == 1) {
+                    setTimeout(function() {
+                        $(element).css('display', 'block');
+                    }, 33500);
+                }
+                else if (index == 2) {
+                    setTimeout(function() {
+                        $(element).css('display', 'block');
+                    }, 24500);
+                }
+                else if (index == 3) {
+                    setTimeout(function() {
+                        $(element).css('display', 'block');
+                    }, 11500);
+                }
+            }, 200);
+        });
+    });
+
+    ///////////// PopUp Forms
+
+    $('input[name=phone]').mask("+7 (999) 999-99-99");
+
+    function validateForms(form) {
+        $(form).validate({
+            rules: {
+                name: "required",
+                phone: "required",
+                email: {
+                    required: true,
+                    email: true
+                }
+            },
+            messages: {
+                name: "Пожалуйста, введите свое имя",
+                phone: "Пожалуйста, введите свой номер телефона",
+                email: {
+                    required: "Пожалуйста, введите свою почту",
+                    email: "Неверный формат адреса почты"
+                }
+            }
+        });
+    }
+
+    validateForms('#gift');
+    validateForms('#call_1');
+    validateForms('#call_2');
+    validateForms('#catalog');
+
+    $('.popup__form3_close').click(function() {
+        $('.popup').css('display', 'none');
+        $('.popup__form3').css('display', 'none');
+        $('label.error').css('display', 'none');
+        $('form').trigger('reset');
+    });
+    $('.popup__form2_close').click(function() {
+        $('.popup').css('display', 'none');
+        $('.popup__form2').css('display', 'none');
+        $('label.error').css('display', 'none');
+        $('form').trigger('reset');
+    });
+    $('.popup__form1_close').click(function() {
+        $('.popup').css('display', 'none');
+        $('.popup__form1').css('display', 'none');
+        $('label.error').css('display', 'none');
+        $('form').trigger('reset');
+    });
+
+
+    $('.header__phone_call').click(function() {
+        $('.popup').fadeIn('fast');
+        $('.popup__form2').fadeIn('fast');
+    });
+
+    $('.offer__button').click(function() {
+        $('.popup').fadeIn('fast');
+        $('.popup__form1').fadeIn('fast');
+    });
+
+    $('.calc__button').click(function() {
+        $('.popup').fadeIn('fast');
+        $('.popup__form3').fadeIn('fast');
+    });
+
+    $('.gifts__button').click(function() {
+        $('.popup').fadeIn('fast');
+        $('.popup__form3').fadeIn('fast');
+    });
 });
