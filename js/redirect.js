@@ -9,5 +9,5 @@ return false;
 }
 
 if(isMobile() === true) {
-    window.location  = '/mobile/index.html';
+    window.location  = '/mobile/index_mobile.html';
 }
