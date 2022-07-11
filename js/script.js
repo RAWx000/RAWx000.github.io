@@ -1,7 +1,7 @@
 $(document).ready(function() {
     new WOW().init();
 
-    setTimeout(loadOverflow, 2000);
+    setTimeout(loadOverflow, 200);
 
     const textures = document.querySelectorAll('.textures__rightside_elements_item_img'),
           texturesName = document.querySelectorAll('.textures__rightside_elements_item_name'),
@@ -12,6 +12,8 @@ $(document).ready(function() {
           projectsNums = document.querySelectorAll('.projects__item_num'),
           faceItems = document.querySelectorAll('.face__item_img'),
           faceBorders = document.querySelectorAll('.face__item_border'),
+          jacquardItems = document.querySelectorAll('.jacquard__item_img'),
+          jacquardBorders = document.querySelectorAll('.jacquard__item_round'),
           calcCheckBoxes1 = document.querySelectorAll('.calc__checkboxes_item_rightside_check1_img'),
           calcCheckBoxes2 = document.querySelectorAll('.calc__checkboxes_item_rightside_check2_img'),
           hatsColorRounds = document.querySelectorAll('.hats__item_color_round'),
@@ -470,14 +472,25 @@ $(document).ready(function() {
     $('.jacquard__gallery_left').click(function() {
         if (jacquardPhoto == 0) { jacquardPhoto = 9; }
         else { jacquardPhoto--; }
-        $('.jacquard__gallery_photo').attr("src", "img/elements/jacquard/gallery/" + jacquardPhoto + ".png");
+        $('.jacquard__gallery_photo').attr("src", "img/elements/jacquard/gallery/" + jacquardPhoto + ".jpg");
     });
 
     $('.jacquard__gallery_right').click(function() {
         if (jacquardPhoto == 9) { jacquardPhoto = 0; }
         else { jacquardPhoto++; }
-        $('.jacquard__gallery_photo').attr("src", "img/elements/jacquard/gallery/" + jacquardPhoto + ".png");
+        $('.jacquard__gallery_photo').attr("src", "img/elements/jacquard/gallery/" + jacquardPhoto + ".jpg");
 
+    });
+
+    jacquardItems.forEach((element, i) => {
+        $(element).mouseover(function() {
+            $(jacquardBorders[i]).css('background-color','#ff59599a');
+            $(element).css('transform','scale(1.1)');
+        });
+        $(element).mouseleave(function() {
+            $(jacquardBorders[i]).css('background-color','');
+            $(element).css('transform','');
+        });
     });
 
     ////////////////// Конструктор
