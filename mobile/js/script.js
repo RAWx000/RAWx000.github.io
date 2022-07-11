@@ -10,6 +10,7 @@ $(document).ready(function() {
           hatsDotsItems1 = document.querySelectorAll('.hats__carousel1_dots_item'),
           hatsDotsItems2 = document.querySelectorAll('.hats__carousel2_dots_item'),
           hatsDotsItems3 = document.querySelectorAll('.hats__carousel3_dots_item'),
+          galleryDotsItems = document.querySelectorAll('.gallery__carousel_dots_item'),
           texturesName = document.querySelectorAll('.textures__bottom_item_name');
 
     let currentBobbinsItem = 0,
@@ -189,6 +190,23 @@ $(document).ready(function() {
             $(hatsDotsItems3[i]).css('background-color', '#adadad');
         }
         $(hatsDotsItems3[nextSlide]).css('background-color', '#ff5249');
+    });
+
+    ///////////////// FORMS
+
+    $('input[name=phone]').mask("+7 (999) 999-99-99");
+
+    ///////////////// GALLERY
+
+    $('.gallery__carousel').slick({
+        arrows: false
+    });
+    $(galleryDotsItems[0]).css('background-color', '#ff5249');
+    $('.gallery__carousel').on('beforeChange', function(event, slick, currentSlide, nextSlide){
+        for (let i = 0; i < 6; i++) {
+            $(galleryDotsItems[i]).css('background-color', '#adadad');
+        }
+        $(galleryDotsItems[nextSlide]).css('background-color', '#ff5249');
     });
 
     
