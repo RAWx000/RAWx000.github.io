@@ -7,6 +7,7 @@ $(document).ready(function() {
           texturesName = document.querySelectorAll('.textures__rightside_elements_item_name'),
           texturesCurrent = document.querySelector('.textures__leftside_nav_tname'),
           bobbinItems = document.querySelectorAll('.bobbins__carousel_item'),
+          thanksItems = document.querySelectorAll('.thanks__wrapper_item'),
           projectsPleds = document.querySelectorAll('.projects__item_pled'),
           projectsLogos = document.querySelectorAll('.projects__item_logo'),
           projectsNums = document.querySelectorAll('.projects__item_num'),
@@ -26,13 +27,14 @@ $(document).ready(function() {
           brandingItems = document.querySelectorAll('.branding__item_img'),
           brandingItemsMore = document.querySelectorAll('.branding__more'),
           expertsBottomPlayButtons = document.querySelectorAll('.experts__play_bottom'),
-          expertsMainPlayButton = document.querySelector('.experts__play_main');
+          expertsMainPlayButton = document.querySelector('.experts__play_main'),
+          galleryPhotosItem = document.querySelectorAll('.gallery__photos_item');
 
     let currentTextureNumber = 1,
         firstBobbinItem = 0,
-        lastBobbinItem = 9,
+        lastBobbinItem = 11,
         currentBobbinItem = 5,
-        bobbinColors = ["Оранжевый", "Бирюзовый", "Зеленый", "Синий", "Пудровый", "Красный", "Шоколадный", "Желтый", "Черный", "Серый", "Бежевый"],
+        bobbinColors = ["Оранжевый", "Бирюзовый", "Зеленый", "Синий", "Пудровый", "Красный", "Шоколадный", "Желтый", "Черный", "Белый", "Бежевый", "Серый"],
         //////////////// Калькулятор [ниже]
         calcDiscount = [0, 0, 5, 0],
         calcDiscountOld = 5,
@@ -45,7 +47,9 @@ $(document).ready(function() {
         constructorColor = 1,
         jacquardPhoto = 0,
         ///////////////
-        thanksNumber = 1;
+        firstThanksItem = 0,
+        lastThanksItem = 8,
+        currentThanksItem = 4;
 
 
     $(window).load(function() {
@@ -194,7 +198,7 @@ $(document).ready(function() {
     $('.bobbins__nav_rightarrow').click(function() {
         $(bobbinItems[firstBobbinItem]).appendTo('.bobbins__carousel');
         lastBobbinItem = firstBobbinItem;
-        if (firstBobbinItem < 10) { firstBobbinItem++; }
+        if (firstBobbinItem < 11) { firstBobbinItem++; }
         else { firstBobbinItem = 0; }
         currentBobbin(1);
     });
@@ -203,13 +207,13 @@ $(document).ready(function() {
         $(bobbinItems[lastBobbinItem]).prependTo('.bobbins__carousel');
         firstBobbinItem = lastBobbinItem;
         if (lastBobbinItem > 0) { lastBobbinItem--; }
-        else { lastBobbinItem = 10; }
+        else { lastBobbinItem = 11; }
         currentBobbin(0);
     });
 
     function currentBobbin(direction) {
         if (direction == 1) {
-            if (currentBobbinItem < 10) {
+            if (currentBobbinItem < 11) {
                 currentBobbinItem++;
             }
             else { currentBobbinItem = 0; }
@@ -218,7 +222,7 @@ $(document).ready(function() {
             if (currentBobbinItem > 0) {
                 currentBobbinItem--;
             }
-            else { currentBobbinItem = 10; }
+            else { currentBobbinItem = 11; }
         }
         $(".bobbins__nav_color").text(bobbinColors[currentBobbinItem]);
         switch (currentBobbinItem) {
@@ -250,10 +254,13 @@ $(document).ready(function() {
                 $(".bobbins__nav_color").css('color', '#000000');
                 break;
             case 9:
-                $(".bobbins__nav_color").css('color', '#787878');
+                $(".bobbins__nav_color").css('color', '#c0c0c0');
                 break;
             case 10:
                 $(".bobbins__nav_color").css('color', '#e0cfb1');
+                break;
+            case 11:
+                $(".bobbins__nav_color").css('color', '#808080');
                 break;
         }
     }
@@ -598,46 +605,40 @@ $(document).ready(function() {
     //////////////// Thanks
 
     $('.thanks__rightarrow').click(function() {
-        if (thanksNumber < 3) {
-            thanksNumber++;
-        }
-        else { 
-            thanksNumber = 1;
-        }
-        updateThanks();
+        $(thanksItems[firstThanksItem]).appendTo('.thanks__wrapper');
+        lastThanksItem = firstThanksItem;
+        if (firstThanksItem < 8) { firstThanksItem++; }
+        else { firstThanksItem = 0; }
+        currentThanks(1);
     });
 
     $('.thanks__leftarrow').click(function() {
-        if (thanksNumber > 1) {
-            thanksNumber--;
-        }
-        else { 
-            thanksNumber = 3;
-        }
-        updateThanks();
+        $(thanksItems[lastThanksItem]).prependTo('.thanks__wrapper');
+        firstThanksItem = lastThanksItem;
+        if (lastThanksItem > 0) { lastThanksItem--; }
+        else { lastThanksItem = 8; }
+        currentThanks(0);
     });
 
-    function updateThanks() {
-        $('.thanks__item2').attr("src", "img/elements/thanks/2/" + thanksNumber + ".png");
-        switch (thanksNumber) {
-            case 1:
-                $('.thanks__item3').attr("src", "img/elements/thanks/3/2.png");
-                $('.thanks__item1').attr("src", "img/elements/thanks/1/3.png");
-                break;
-            case 2:
-                $('.thanks__item3').attr("src", "img/elements/thanks/3/3.png");
-                $('.thanks__item1').attr("src", "img/elements/thanks/1/1.png");
-                break;
-            case 3:
-                $('.thanks__item3').attr("src", "img/elements/thanks/3/1.png");
-                $('.thanks__item1').attr("src", "img/elements/thanks/1/2.png");
-                break; 
+    function currentThanks(direction) {
+        if (direction == 1) {
+            if (currentThanksItem < 8) {
+                currentThanksItem++;
+            }
+            else { currentThanksItem = 0; }
+        }
+        else {
+            if (currentThanksItem > 0) {
+                currentThanksItem--;
+            }
+            else { currentThanksItem = 8; }
         }
     }
 
-    $('.thanks__target2').click(function() {
-        $('.thanks__overlay').css('display', 'block');
-        $('.thanks__overlay_item').attr("src", "img/elements/thanks/a4_"+ thanksNumber +".png");
+    $('.thanks__target').click(function() {
+        console.log(currentThanksItem);
+        $('.thanks__overlay').css('display', 'flex');
+        $('.thanks__overlay_item').attr("src", "img/elements/thanks/blancs/"+ (currentThanksItem+1) +".png");
     });
 
     $('.thanks__overlay_close').click(function() {
@@ -754,4 +755,17 @@ $(document).ready(function() {
         $('.popup').fadeIn('fast');
         $('.popup__form3').fadeIn('fast');
     });
+
+    /////////////////// GALLERY
+
+    galleryPhotosItem.forEach((element, index) => {
+        $(element).click(function() {
+            $('.gallery__overlay').css('display', 'flex');
+            $('.gallery__overlay_img').attr("src", "img/elements/gallery/imgs/" + (index+1) + ".jpg");
+        });
+    });
+    $('.gallery__overlay_close').click(function() {
+        $('.gallery__overlay').fadeOut('fast');
+    });
+
 });
