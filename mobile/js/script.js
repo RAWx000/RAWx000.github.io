@@ -6,6 +6,12 @@ $(document).ready(function() {
           expertsVideoItems = document.querySelectorAll('.experts__carousel_item'),
           bobbinsDotsItems = document.querySelectorAll('.bobbins__carousel_dots_item'),
           brandingDotsItems = document.querySelectorAll('.branding__carousel_dots_item'),
+          brandingOverlayDotsItems1 = document.querySelectorAll('.branding__overlay_carousel_1_dots_item'),
+          brandingOverlayDotsItems2 = document.querySelectorAll('.branding__overlay_carousel_2_dots_item'),
+          brandingOverlayDotsItems3 = document.querySelectorAll('.branding__overlay_carousel_3_dots_item'),
+          brandingOverlayDotsItems4 = document.querySelectorAll('.branding__overlay_carousel_4_dots_item'),
+          brandingOverlayDotsItems6 = document.querySelectorAll('.branding__overlay_carousel_6_dots_item'),
+          brandingCarouselButtons = document.querySelectorAll('.branding__carousel_item'),
           jacquardDotsItems = document.querySelectorAll('.jacquard__carousel_dots_item'),
           hatsDotsItems1 = document.querySelectorAll('.hats__carousel1_dots_item'),
           hatsDotsItems2 = document.querySelectorAll('.hats__carousel2_dots_item'),
@@ -14,9 +20,11 @@ $(document).ready(function() {
           texturesName = document.querySelectorAll('.textures__bottom_item_name');
 
     let currentBobbinsItem = 0,
-        bobbinsColors = ["Красный", "Бирюзовый", "Зеленый", "Синий", "Пудровый", "Оранжевый", "Шоколадный", "Желтый", "Черный", "Серый", "Бежевый"],
+        bobbinsColors = ["Красный", "Бирюзовый", "Зеленый", "Синий", "Пудровый", "Оранжевый", "Шоколадный", "Желтый", "Черный", "Белый", "Бежевый", "Серый"],
         currentExpertsVideo = 0,
-        currentTexturesItem = 1;
+        currentTexturesItem = 1,
+        brandingActive = 0,
+        currentThanks = 1;
 
     ////////////////////////// EXPERTS
 
@@ -60,7 +68,7 @@ $(document).ready(function() {
 
     $('.bobbins__carousel').slick({
         arrows: false,
-        speed: 180
+        speed: 300
     });
 
     $(bobbinsDotsItems[currentBobbinsItem]).css('background-color', '#ff5249');
@@ -68,7 +76,7 @@ $(document).ready(function() {
     $('.bobbins__carousel').on('beforeChange', function(event, slick, currentSlide, nextSlide){
         currentBobbinsItem = nextSlide;
 
-        for (let i = 0; i < 11; i++) {
+        for (let i = 0; i < 12; i++) {
             $(bobbinsDotsItems[i]).css('background-color', '#adadad');
         }
         $(bobbinsDotsItems[currentBobbinsItem]).css('background-color', '#ff5249');
@@ -103,10 +111,13 @@ $(document).ready(function() {
                 $(".bobbins__name").css('color', '#000000');
                 break;
             case 9:
-                $(".bobbins__name").css('color', '#787878');
+                $(".bobbins__name").css('color', '#c0c0c0');
                 break;
             case 10:
                 $(".bobbins__name").css('color', '#e0cfb1');
+                break;
+            case 11:
+                $(".bobbins__name").css('color', '#808080');
                 break;
         }
     });
@@ -141,6 +152,78 @@ $(document).ready(function() {
             $(brandingDotsItems[i]).css('background-color', '#adadad');
         }
         $(brandingDotsItems[nextSlide]).css('background-color', '#ff5249');
+    });
+
+    /// BRANDING overlay
+
+    $('.branding__overlay_carousel_1').slick({
+        arrows: false,
+    });
+    $(brandingOverlayDotsItems1[0]).css('background-color', '#ff5249');
+    $('.branding__overlay_carousel_1').on('beforeChange', function(event, slick, currentSlide, nextSlide){
+        for (let i = 0; i < 4; i++) {
+            $(brandingOverlayDotsItems1[i]).css('background-color', '#adadad');
+        }
+        $(brandingOverlayDotsItems1[nextSlide]).css('background-color', '#ff5249');
+    });
+
+    $('.branding__overlay_carousel_2').slick({
+        arrows: false
+    });
+    $(brandingOverlayDotsItems2[0]).css('background-color', '#ff5249');
+    $('.branding__overlay_carousel_2').on('beforeChange', function(event, slick, currentSlide, nextSlide){
+        for (let i = 0; i < 4; i++) {
+            $(brandingOverlayDotsItems2[i]).css('background-color', '#adadad');
+        }
+        $(brandingOverlayDotsItems2[nextSlide]).css('background-color', '#ff5249');
+    });
+
+    $('.branding__overlay_carousel_3').slick({
+        arrows: false
+    });
+    $(brandingOverlayDotsItems3[0]).css('background-color', '#ff5249');
+    $('.branding__overlay_carousel_3').on('beforeChange', function(event, slick, currentSlide, nextSlide){
+        for (let i = 0; i < 4; i++) {
+            $(brandingOverlayDotsItems3[i]).css('background-color', '#adadad');
+        }
+        $(brandingOverlayDotsItems3[nextSlide]).css('background-color', '#ff5249');
+    });
+
+    $('.branding__overlay_carousel_4').slick({
+        arrows: false
+    });
+    $(brandingOverlayDotsItems4[0]).css('background-color', '#ff5249');
+    $('.branding__overlay_carousel_4').on('beforeChange', function(event, slick, currentSlide, nextSlide){
+        for (let i = 0; i < 4; i++) {
+            $(brandingOverlayDotsItems4[i]).css('background-color', '#adadad');
+        }
+        $(brandingOverlayDotsItems4[nextSlide]).css('background-color', '#ff5249');
+    });
+    
+    $('.branding__overlay_carousel_6').slick({
+        arrows: false
+    });
+    $(brandingOverlayDotsItems6[0]).css('background-color', '#ff5249');
+    $('.branding__overlay_carousel_6').on('beforeChange', function(event, slick, currentSlide, nextSlide){
+        for (let i = 0; i < 4; i++) {
+            $(brandingOverlayDotsItems6[i]).css('background-color', '#adadad');
+        }
+        $(brandingOverlayDotsItems6[nextSlide]).css('background-color', '#ff5249');
+    });
+
+    brandingCarouselButtons.forEach((element, i) => {
+        if (i != 4) {
+            $(element).click(function() {
+                $('.branding__overlay').fadeIn('fast');
+                $('.branding__overlay_' + (i+1)).fadeIn('fast');
+                $('.branding__overlay_carousel_' + (i+1)).slick('setPosition');
+                brandingActive = i+1;
+            });
+        }
+    });
+    $('.branding__overlay_exit').click(function(e) {
+        $('.branding__overlay').fadeOut('fast');
+        $('.branding__overlay_' + brandingActive).fadeOut('fast');
     });
 
     /////////////// JACQUARD
@@ -192,10 +275,6 @@ $(document).ready(function() {
         $(hatsDotsItems3[nextSlide]).css('background-color', '#ff5249');
     });
 
-    ///////////////// FORMS
-
-    $('input[name=phone]').mask("+7 (999) 999-99-99");
-
     ///////////////// GALLERY
 
     $('.gallery__carousel').slick({
@@ -203,11 +282,104 @@ $(document).ready(function() {
     });
     $(galleryDotsItems[0]).css('background-color', '#ff5249');
     $('.gallery__carousel').on('beforeChange', function(event, slick, currentSlide, nextSlide){
-        for (let i = 0; i < 6; i++) {
+        for (let i = 0; i < 16; i++) {
             $(galleryDotsItems[i]).css('background-color', '#adadad');
         }
         $(galleryDotsItems[nextSlide]).css('background-color', '#ff5249');
     });
 
+    /////////////// THANKS
+
+    $('.thanks__carousel_target').click(function() {
+        $('.thanks__overlay').fadeIn('fast');
+        $('.thanks__overlay_item').attr("src", "img/elements/thanks/blancs/" + currentThanks + ".png");
+    });
+
+    $('.thanks__overlay_exit').click(function(e) {
+        $('.thanks__overlay').fadeOut('fast');
+    });
+
+    $('.thanks__carousel_right').click(function() {
+        if (currentThanks < 9) {
+            currentThanks++;
+        }
+        else {
+            currentThanks = 1;
+        }
+        $('.thanks__carousel_item').attr("src", "img/elements/thanks/items/" + currentThanks + ".png");
+    });
+    $('.thanks__carousel_left').click(function() {
+        if (currentThanks > 1) {
+            currentThanks--;
+        }
+        else {
+            currentThanks = 9;
+        }
+        $('.thanks__carousel_item').attr("src", "img/elements/thanks/items/" + currentThanks + ".png");
+    });
+
+    /////////////// POPUP FORMS
+
+    $('input[name=phone]').mask("+7 (999) 999-99-99");
+
+    function validateForms(form) {
+        $(form).validate({
+            rules: {
+                name: "required",
+                phone: "required",
+                email: {
+                    required: true,
+                    email: true
+                }
+            },
+            messages: {
+                name: "Пожалуйста, введите свое имя",
+                phone: "Пожалуйста, введите свой номер телефона",
+                email: {
+                    required: "Пожалуйста, введите свою почту",
+                    email: "Неверный формат адреса почты"
+                }
+            }
+        });
+    }
+
+    validateForms('#call_1');
+    validateForms('#call_2');
+    validateForms('#catalog');
+
+    $('.main__button').click(function() {
+        setTimeout(function() {
+            $('.popup').fadeIn('fast');
+            $('.popup__form1').fadeIn('fast');
+        }, 300);
+    });
+
+    $('.branding__button').click(function() {
+        setTimeout(function() {
+            $('.popup').fadeIn('fast');
+            $('.popup__form1').fadeIn('fast');
+        }, 300);
+    });
+
+    $('.header__phone_call').click(function() {
+        setTimeout(function() {
+            $('.popup').fadeIn('fast');
+            $('.popup__form2').fadeIn('fast');
+        }, 300);
+    });
+
+    $('.popup__form1_close').click(function() {
+        $('.popup').fadeOut('fast');
+        $('.popup__form1').fadeOut('fast');
+        $('label.error').css('display', 'none');
+        $('form').trigger('reset');
+    });
+
+    $('.popup__form2_close').click(function() {
+        $('.popup').fadeOut('fast');
+        $('.popup__form2').fadeOut('fast');
+        $('label.error').css('display', 'none');
+        $('form').trigger('reset');
+    });
     
 });
