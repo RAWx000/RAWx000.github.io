@@ -24,7 +24,8 @@ $(document).ready(function() {
         currentExpertsVideo = 0,
         currentTexturesItem = 1,
         brandingActive = 0,
-        currentThanks = 1;
+        currentThanks = 1,
+        typeOfSubmit = 0;
 
     ////////////////////////// EXPERTS
 
@@ -351,21 +352,27 @@ $(document).ready(function() {
         setTimeout(function() {
             $('.popup').fadeIn('fast');
             $('.popup__form1').fadeIn('fast');
+            $('#catalog').attr("onsubmit","ym(50797489,'reachGoal','ZAYAVKA'); return true;");
         }, 300);
+        typeOfSubmit = 1; // Каталог
     });
 
     $('.branding__button').click(function() {
         setTimeout(function() {
             $('.popup').fadeIn('fast');
             $('.popup__form1').fadeIn('fast');
+            $('#catalog').attr("onsubmit","ym(50797489,'reachGoal','ZAYAVKA'); return true;");
         }, 300);
+        typeOfSubmit = 1; // Каталог
     });
 
     $('.header__phone_call').click(function() {
         setTimeout(function() {
             $('.popup').fadeIn('fast');
             $('.popup__form2').fadeIn('fast');
+            $('#call_2').attr("onsubmit","ym(50797489,'reachGoal','ZAYAVKA'); return true;");
         }, 300);
+        typeOfSubmit = 0; // Перезвоним
     });
 
     $('.popup__form1_close').click(function() {
@@ -373,6 +380,7 @@ $(document).ready(function() {
         $('.popup__form1').fadeOut('fast');
         $('label.error').css('display', 'none');
         $('form').trigger('reset');
+        typeOfSubmit = 0;
     });
 
     $('.popup__form2_close').click(function() {
@@ -380,6 +388,38 @@ $(document).ready(function() {
         $('.popup__form2').fadeOut('fast');
         $('label.error').css('display', 'none');
         $('form').trigger('reset');
+        typeOfSubmit = 0;
+    });
+
+    $('form').submit(function(e) {
+        e.preventDefault();
+        switch(typeOfSubmit) {
+            case 0:
+                $.ajax({
+                    type: "POST",
+                    url: "mailer/smart_call.php",
+                    data: $(this).serialize()
+                }).done(function() {
+                    $(this).find("input").val("");
+                    $('.popup, .popup__form1, .popup__form2, .popup__form3').fadeOut('fast');
+                    $('label.error').css('display', 'none');
+                    $('form').trigger('reset');
+                });
+                break;
+            case 1:
+                $.ajax({
+                    type: "POST",
+                    url: "mailer/smart_catalog.php",
+                    data: $(this).serialize()
+                }).done(function() {
+                    $(this).find("input").val("");
+                    $('.popup, .popup__form1, .popup__form2, .popup__form3').fadeOut('fast');
+                    $('label.error').css('display', 'none');
+                    $('form').trigger('reset');
+                });
+                break;
+        }
+        return false;
     });
     
 });
