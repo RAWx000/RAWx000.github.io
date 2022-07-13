@@ -49,11 +49,12 @@ $(document).ready(function() {
         ///////////////
         firstThanksItem = 0,
         lastThanksItem = 8,
-        currentThanksItem = 4;
+        currentThanksItem = 4,
+        typeOfSubmit = 0;
 
 
     $(window).load(function() {
-        $('#before-load').find('img').fadeOut(2000).end().delay(2000).fadeOut('slow');
+        $('#before-load').find('img').fadeOut(2000).end().delay(1000).fadeOut('slow');
     });
 
     function loadOverflow() {
@@ -265,6 +266,9 @@ $(document).ready(function() {
         }
     }
 
+
+    ///// PROJECTS
+
     projectsPleds.forEach((element, i) => {
         $(element).mouseover(function() {
             switch (i) {
@@ -299,6 +303,15 @@ $(document).ready(function() {
             $(projectsNums[i]).css('filter','');
         });
     });
+
+    $('.projects__button').click(function() {
+        $('.projects__hide').slideToggle('slow');
+        $('.projects__hide').css('display', 'flex');
+        $('.projects__button').css('display','none');
+        $('.projects').css('padding', '150px 0 100px 0');
+    });
+
+    ////////////////////// FACE
 
     faceItems.forEach((element, i) => {
         $(element).mouseover(function() {
@@ -721,39 +734,111 @@ $(document).ready(function() {
         $('.popup__form3').css('display', 'none');
         $('label.error').css('display', 'none');
         $('form').trigger('reset');
+        typeOfSubmit = 0;
     });
     $('.popup__form2_close').click(function() {
         $('.popup').css('display', 'none');
         $('.popup__form2').css('display', 'none');
         $('label.error').css('display', 'none');
         $('form').trigger('reset');
+        typeOfSubmit = 0;
     });
     $('.popup__form1_close').click(function() {
         $('.popup').css('display', 'none');
         $('.popup__form1').css('display', 'none');
         $('label.error').css('display', 'none');
         $('form').trigger('reset');
+        typeOfSubmit = 0;
     });
 
 
     $('.header__phone_call').click(function() {
         $('.popup').fadeIn('fast');
         $('.popup__form2').fadeIn('fast');
+        $('#call_2').attr("onsubmit","ym(50797489,'reachGoal','ZAYAVKA'); return true;");
+        typeOfSubmit = 0; // Перезвоним
     });
 
     $('.offer__button').click(function() {
         $('.popup').fadeIn('fast');
         $('.popup__form1').fadeIn('fast');
+        $('#catalog').attr("onsubmit","ym(50797489,'reachGoal','ZAYAVKA'); return true;");
+        typeOfSubmit = 1; // Каталог
     });
 
     $('.calc__button').click(function() {
         $('.popup').fadeIn('fast');
         $('.popup__form3').fadeIn('fast');
+        $('#gift').attr("onsubmit","ym(50797489,'reachGoal','rashet_skidki'); return true;");
+        typeOfSubmit = 2; // Бюлжет на подарки
     });
 
     $('.gifts__button').click(function() {
         $('.popup').fadeIn('fast');
         $('.popup__form3').fadeIn('fast');
+        $('#gift').attr("onsubmit","ym(50797489,'reachGoal','ZAYAVKAVBUDJET'); return true;");
+        typeOfSubmit = 2; // Бюджет на подарки
+    });
+
+    $('.constructor__modal_4_button').click(function() {
+        $('.constructor__modal_4').css('display', 'none');
+        $('.constructor__overlay').hide();
+        console.log('Пряжа: ' + constructorYarn + '; Узор: ' + constructorPattern + '; Цвет: ' + constructorColor);
+        setTimeout(function() {
+            $('.popup').fadeIn('fast');
+            $('.popup__form3').fadeIn('fast');
+            $('#gift').attr("onsubmit","ym(50797489,'reachGoal','Konstruktor'); return true;");
+            typeOfSubmit = 2; // Бюджет на подарки 
+        }, 200);
+        
+    });
+
+    ////////////////////// EMAIL FORMS SUBMIT
+
+    $('form').submit(function(e) {
+        e.preventDefault();
+        switch(typeOfSubmit) {
+            case 0:
+                $.ajax({
+                    type: "POST",
+                    url: "mailer/smart_call.php",
+                    data: $(this).serialize()
+                }).done(function() {
+                    $(this).find("input").val("");
+                    $('.popup, .popup__form1, .popup__form2, .popup__form3').css('display', 'none');
+                    $('label.error').css('display', 'none');
+                    $('form').trigger('reset');
+                    typeOfSubmit = 0;
+                });
+                break;
+            case 1:
+                $.ajax({
+                    type: "POST",
+                    url: "mailer/smart_catalog.php",
+                    data: $(this).serialize()
+                }).done(function() {
+                    $(this).find("input").val("");
+                    $('.popup, .popup__form1, .popup__form2, .popup__form3').css('display', 'none');
+                    $('label.error').css('display', 'none');
+                    $('form').trigger('reset');
+                    typeOfSubmit = 0;
+                });
+                break;
+            case 2:
+                $.ajax({
+                    type: "POST",
+                    url: "mailer/smart_gift.php",
+                    data: $(this).serialize()
+                }).done(function() {
+                    $(this).find("input").val("");
+                    $('.popup, .popup__form1, .popup__form2, .popup__form3').css('display', 'none');
+                    $('label.error').css('display', 'none');
+                    $('form').trigger('reset');
+                    typeOfSubmit = 0;
+                });
+                break;
+        }
+        return false;
     });
 
     /////////////////// GALLERY
