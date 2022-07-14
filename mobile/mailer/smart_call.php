@@ -2,6 +2,7 @@
 
 $name = $_POST['name'];
 $phone = $_POST['phone'];
+$email = $_POST['email'];
 
 require_once('phpmailer/PHPMailerAutoload.php');
 $mail = new PHPMailer;
@@ -31,6 +32,7 @@ $mail->Subject = 'Заявка на обратную связь';
 $mail->Body    = '
 	Пользователь оставил данные <br><br> 
 	Имя: ' . $name . ' <br>
+	Почта: ' . $email . ' <br>
 	Номер телефона: ' . $phone . '';
 
 if(!$mail->send()) {
