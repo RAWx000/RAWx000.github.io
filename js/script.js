@@ -729,6 +729,11 @@ $(document).ready(function() {
     validateForms('#call_2');
     validateForms('#catalog');
 
+    $('.popup__form4_close').click(function() {
+        $('.popup').css('display', 'none');
+        $('.popup__form4').css('display', 'none');
+        typeOfSubmit = 0;
+    });
     $('.popup__form3_close').click(function() {
         $('.popup').css('display', 'none');
         $('.popup__form3').css('display', 'none');
@@ -797,6 +802,8 @@ $(document).ready(function() {
 
     $('form').submit(function(e) {
         e.preventDefault();
+        let $form = $(this);
+        if (!$form.valid()) { return false; }
         switch(typeOfSubmit) {
             case 0:
                 $.ajax({
@@ -808,9 +815,13 @@ $(document).ready(function() {
                     $('.popup, .popup__form1, .popup__form2, .popup__form3').css('display', 'none');
                     $('label.error').css('display', 'none');
                     $('form').trigger('reset');
+                    setTimeout(function() {
+                        $('.popup').fadeIn('fast');
+                        $('.popup__form4').fadeIn('fast');
+                    }, 300);
                     typeOfSubmit = 0;
                 });
-                break;
+                return false;
             case 1:
                 $.ajax({
                     type: "POST",
@@ -821,9 +832,13 @@ $(document).ready(function() {
                     $('.popup, .popup__form1, .popup__form2, .popup__form3').css('display', 'none');
                     $('label.error').css('display', 'none');
                     $('form').trigger('reset');
+                    setTimeout(function() {
+                        $('.popup').fadeIn('fast');
+                        $('.popup__form4').fadeIn('fast');
+                    }, 300);
                     typeOfSubmit = 0;
                 });
-                break;
+                return false;
             case 2:
                 $.ajax({
                     type: "POST",
@@ -834,11 +849,14 @@ $(document).ready(function() {
                     $('.popup, .popup__form1, .popup__form2, .popup__form3').css('display', 'none');
                     $('label.error').css('display', 'none');
                     $('form').trigger('reset');
+                    setTimeout(function() {
+                        $('.popup').fadeIn('fast');
+                        $('.popup__form4').fadeIn('fast');
+                    }, 300);
                     typeOfSubmit = 0;
                 });
-                break;
+                return false;
         }
-        return false;
     });
 
     /////////////////// GALLERY
